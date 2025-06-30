@@ -149,12 +149,13 @@
 .card__content {transform-style: preserve-3d;}
 
 .card__front {
-  background: url('/perlin.png') lightgray 0% 0% / 466% 1400px repeat, #484848;
-  background-blend-mode: darken, normal;
+  background: radial-gradient(169.67% 106.82% at 51.37% 7.19%, #F6F3F2 0%, #EEE4DF 100%);
+  
 }
 
 .card__back{
-  background: radial-gradient(169.67% 106.82% at 51.37% 7.19%, #FBFBFB 0%, #EAEAEA 100%);
+  background: url('/perlin.png') lightgray 0% 0% / 466% 1400px repeat, #484848;
+  background-blend-mode: darken, normal;
 }
 .card__front,
 .card__back { backface-visibility: hidden;}
