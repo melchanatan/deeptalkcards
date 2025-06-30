@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Kanit } from "next/font/google";
 import "./globals.css";
-import Nav from "@/features/common/components/nav";
+import Nav from "@/components/nav";
 import localFont from "next/font/local";
+import Footer from "@/components/footer";
 
 const fontPrimary = Kanit({
   variable: "--font-primary",
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <Nav />
         {children}
+        <Footer />
       </body>
     </html>
   );
