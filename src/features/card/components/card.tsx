@@ -30,7 +30,7 @@ const Card = ({ frontContent = "Front of Card", className }: CardProps) => {
           )}
         >
           {/* Front of card */}
-          <div className="card__front absolute rounded-xl top-0 bottom-0 right-0 left-0 p-8 flex items-center justify-center">
+          <div className="card__front absolute rounded-xl top-0 bottom-0 right-0 left-0 p-5 flex items-center justify-start">
             <Image
               src="/deeptalk.svg"
               alt="Card back"
@@ -38,7 +38,9 @@ const Card = ({ frontContent = "Front of Card", className }: CardProps) => {
               height={50}
               className="absolute top-6 left-5 select-none"
             />
-            <h2>{frontContent}</h2>
+            <h2 className="font-normal text-[clamp(1.5rem,2.5vw,2rem)] text-start">
+              {frontContent}
+            </h2>
           </div>
 
           {/* Back of card */}
