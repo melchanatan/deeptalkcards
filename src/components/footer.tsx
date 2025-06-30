@@ -4,8 +4,8 @@ import { CoffeeIcon } from "@phosphor-icons/react/dist/ssr";
 
 function Footer() {
   return (
-    <footer className="font-display text-xl py-6 flex flex-col items-center gap-3">
-      <div className="text-center max-w-[250px] space-y-6">
+    <footer className="font-display text-xl container py-6 flex flex-col items-start gap-3">
+      <div className="text-start max-w-[300px] space-y-6">
         <p>
           built with :heart: <br />
           by{" "}
