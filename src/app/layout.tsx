@@ -2,11 +2,17 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Kanit } from "next/font/google";
 import "./globals.css";
 import Nav from "@/features/common/components/nav";
+import localFont from "next/font/local";
 
-const primaryFont = Kanit({
+const fontPrimary = Kanit({
   variable: "--font-primary",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
+
+const fontDisplay = localFont({
+  variable: "--font-display",
+  src: "./fonts/vcr-osd.woff2",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${primaryFont.className} antialiased dark`}>
+      <body
+        className={`${fontPrimary.variable} ${fontPrimary.className} ${fontDisplay.variable} antialiased dark`}
+      >
         <Nav />
         {children}
       </body>

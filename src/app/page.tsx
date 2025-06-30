@@ -3,10 +3,12 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Card />
-      </main>
-    </div>
+    <main className="flex flex-col items-center justify-center h-screen">
+      <Card />
+
+      <div className="absolute bottom-0 left-0 right-0 text-center text-white text-4xl font-display">
+        The Future of Work is Here
+      </div>
+    </main>
   );
 }
