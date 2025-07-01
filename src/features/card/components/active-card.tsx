@@ -155,30 +155,6 @@ const Card = ({
     setIsDragging(true);
   };
 
-  if (!isActiveCard)
-    return (
-      <div
-        className={cn("w-[260px] sm:w-[300px]", className)}
-        style={style}
-        onClick={flipCard}
-      >
-        <AspectRatio ratio={9 / 16} className="relative">
-          <div
-            style={cardStyle}
-            className="card__front absolute rounded-xl top-0 bottom-0 right-0 left-0 p-5 flex border border-[#F1F1F1] items-center justify-center"
-          >
-            <Image
-              src="/deeptalk-red.svg"
-              alt="Card back"
-              width={124}
-              height={100}
-              className="select-none"
-            />
-          </div>
-        </AspectRatio>
-      </div>
-    );
-
   return (
     <>
       <motion.div

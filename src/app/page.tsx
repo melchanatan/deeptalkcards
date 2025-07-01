@@ -1,4 +1,4 @@
-import Card from "@/features/card/components/card";
+import Card from "@/features/card/components/active-card";
 import CardsStack from "@/features/card/components/cards-stack";
 import Image from "next/image";
 

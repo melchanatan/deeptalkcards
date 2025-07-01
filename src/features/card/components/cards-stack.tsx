@@ -1,8 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils";
-import Card from "./card";
+import ActiveCard from "./active-card";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import DomantCard from "./domant-card";
 
 const demoContent = [
   {
@@ -79,8 +80,26 @@ const CardsStack = () => {
           const brightness = 1 - (demoContent.length - index) * 0.1;
           if (brightness <= 0) return null;
 
+          if (index !== cards.length - 1)
+            return (
+              <DomantCard
+                key={item.id}
+                className={cn("absolute top-0 left-0")}
+                style={{
+                  filter: `brightness(${brightness})`,
+                }}
+                cardStyle={{
+                  transform: `
+                rotateZ(${item.rotation}deg)
+                 translateX(${item.rotation}px) 
+                 translateY(${item.rotation ? item.rotation * -1 : 0}px)
+                 `,
+                }}
+              />
+            );
+
           return (
-            <Card
+            <ActiveCard
               key={item.id}
               content={item.content}
               onCardPop={popCard}
