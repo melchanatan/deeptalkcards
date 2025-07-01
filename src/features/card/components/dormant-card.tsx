@@ -17,7 +17,7 @@ interface CardProps {
   style?: React.CSSProperties;
 }
 
-const DomantCard = ({ cardStyle, className, style }: CardProps) => {
+const DormantCard = ({ cardStyle, className, style }: CardProps) => {
   return (
     <div className={cn("w-[260px] sm:w-[300px]", className)} style={style}>
       <AspectRatio ratio={9 / 16} className="relative">
@@ -39,4 +39,4 @@ const DomantCard = ({ cardStyle, className, style }: CardProps) => {
   );
 };
 
-export default DomantCard;
+export default DormantCard;

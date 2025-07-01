@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import ActiveCard from "./active-card";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import DomantCard from "./domant-card";
+import DormantCard from "./dormant-card";
 import {
   ArrowLeftIcon,
   ArrowClockwiseIcon,
@@ -84,7 +84,7 @@ const CardsStack = ({
             );
 
           return (
-            <DomantCard
+            <DormantCard
               key={item.id}
               className={cn("absolute top-0 left-0")}
               style={{
