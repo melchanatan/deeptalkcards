@@ -178,7 +178,7 @@ const Card = ({
           duration: 0.5,
         }}
       >
-        <AspectRatio ratio={9 / 16} className="relative ">
+        <AspectRatio ratio={9 / 16} className="relative">
           <div
             className={cn(
               cardClassName,
@@ -214,7 +214,7 @@ const Card = ({
                 height={50}
                 className="absolute top-6 left-5 select-none w-[64px] sm:w-[72px]"
               />
-              <h2 className="select-none font-normal text-[clamp(1.5rem,2.5vw,2rem)] text-start">
+              <h2 className="select-none font-normal text-[clamp(1.5rem,2.5vw,1.75rem)] text-start">
                 {content}
               </h2>
             </div>
