@@ -12,7 +12,7 @@ const Deck = ({ deck }: { deck: any }) => {
       <AspectRatio ratio={9 / 16} className="relative">
         <div className="card__front text-background font-display rounded-xl size-full flex flex-col justify-between border p-4 border-[#F1F1F1] items-start ">
           <Image
-            src="/deeptalk-black.svg"
+            src="/deeptalk-red.svg"
             alt="Card back"
             width={64}
             height={64}

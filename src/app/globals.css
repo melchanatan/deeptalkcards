@@ -160,3 +160,7 @@
 .card__front,
 .card__back { backface-visibility: hidden;}
 .card__back{ transform: rotateY(.5turn);}
+
+.container {
+  @apply max-w-4xl px-2;
+}
