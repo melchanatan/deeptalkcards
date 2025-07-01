@@ -2,8 +2,10 @@ import CardsStack from "@/features/card/components/cards-stack";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 
-export default async function Home({ params }: { params: { deckId: string } }) {
-  const { deckId } = await params;
+export default async function Home(props: {
+  params: Promise<{ deckId: string }>;
+}) {
+  const { deckId } = await props.params;
   const supabase = await createClient();
   const { data: cards } = await supabase
     .from("cards")

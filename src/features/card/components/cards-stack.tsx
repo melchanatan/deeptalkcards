@@ -26,7 +26,7 @@ const CardsStack = ({
   difficulty: number;
 }) => {
   const [currentCards, setCurrentCards] = useState<Card[]>([]);
-  const totalCardCount = useMemo(() => cards.length, []);
+  const totalCardCount = useMemo(() => cards.length, [cards]);
 
   function mutateRandomRotation(cards: Card[]) {
     return cards.map((card) => {
@@ -45,7 +45,7 @@ const CardsStack = ({
 
   useEffect(() => {
     shuffleCards();
-  }, []);
+  });
 
   async function popCard() {
     await new Promise((resolve) => setTimeout(resolve, 400));
