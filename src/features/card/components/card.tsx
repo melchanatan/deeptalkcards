@@ -9,6 +9,7 @@ import { ShareIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { s } from "motion/react-client";
 import ButtonGroup from "./button-group";
+import { useClickAway } from "@uidotdev/usehooks";
 
 interface CardProps {
   content?: React.ReactNode;
@@ -31,6 +32,7 @@ const Card = ({
   style,
 }: CardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     if (isFlipped) {
@@ -52,8 +54,19 @@ const Card = ({
 
   const flipCard = () => {
     scrollTo({ top: 0, behavior: "smooth" });
-    setIsFlipped(!isFlipped);
+    setIsFlipped(true);
   };
+
+  const [isPopping, setIsPopping] = useState(false);
+
+  function handlePopCard() {
+    setIsPopping(true);
+    onCardPop();
+  }
+
+  const ref = useClickAway<HTMLDivElement>((e) => {
+    setIsFlipped(false);
+  });
 
   if (!isActiveCard)
     return (
@@ -82,9 +95,28 @@ const Card = ({
   return (
     <>
       <motion.div
+        ref={ref}
         drag
         className={cn("w-[260px] sm:w-[300px]")}
         onClick={flipCard}
+        dragSnapToOrigin
+        dragElastic={0.2}
+        onDragStart={() => setIsDragging(true)}
+        onDragEnd={() => setIsDragging(false)}
+        animate={
+          isPopping
+            ? {
+                y: [-20, -900],
+                x: [0, 600],
+                scale: [1.1, 0.6],
+                rotateZ: [0, 30],
+              }
+            : {}
+        }
+        dragMomentum={true}
+        transition={{
+          duration: 0.5,
+        }}
       >
         <AspectRatio ratio={9 / 16} className="relative">
           <div
@@ -128,19 +160,23 @@ const Card = ({
             </div>
           </div>
         </AspectRatio>
-        <ButtonGroup isFlipped={isFlipped} onCardPop={onCardPop} />
+        <ButtonGroup
+          isShowing={isFlipped}
+          isDragging={isDragging}
+          onCardPop={handlePopCard}
+        />
       </motion.div>
-      <BackgroundBlur isFlipped={isFlipped} />
+      <BackgroundBlur isShowing={isFlipped && !isPopping} />
     </>
   );
 };
 
-const BackgroundBlur = ({ isFlipped }: { isFlipped: boolean }) => {
+const BackgroundBlur = ({ isShowing }: { isShowing: boolean }) => {
   return (
     <motion.div
       className="fixed z-[-1] size-full top-0 bottom-0 right-0 left-0 bg-background/10 backdrop-blur-sm"
       initial={{ opacity: 0, pointerEvents: "none" }}
-      animate={{ opacity: isFlipped ? 1 : 0, pointerEvents: "auto" }}
+      animate={{ opacity: isShowing ? 1 : 0, pointerEvents: "auto" }}
       transition={{ duration: 0.5 }}
     />
   );

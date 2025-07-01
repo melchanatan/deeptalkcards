@@ -5,14 +5,23 @@ import { motion } from "motion/react";
 
 const buttonAnimationVariants = {
   initial: { opacity: 0, y: -40 },
-  animate: { opacity: 1, y: 0, transition: { delay: 0.3 } },
+  dragging: { opacity: 0, y: -100, ease: "easeInOut" },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: 0.3,
+    },
+  },
 };
 
 const ButtonGroup = ({
-  isFlipped,
+  isShowing,
+  isDragging,
   onCardPop,
 }: {
-  isFlipped: boolean;
+  isShowing: boolean;
+  isDragging: boolean;
   onCardPop: () => void;
 }) => {
   return (
@@ -23,12 +32,12 @@ const ButtonGroup = ({
       )}
       variants={buttonAnimationVariants}
       transition={{
+        duration: 0.5,
         opacity: { duration: 0.2 },
         y: { duration: 0.8 },
-        ease: "easeInOut",
       }}
       initial="initial"
-      animate={isFlipped ? "animate" : "initial"}
+      animate={isDragging ? "dragging" : isShowing ? "animate" : "initial"}
     >
       <div className="flex-1">
         <Button className="w-full" onClick={onCardPop}>
