@@ -101,7 +101,13 @@ const CardsStack = () => {
         })}
       </div>
 
-      <div className="absolute top-[calc(100vh-1rem)] translate-y-[-100%] z-[-2] w-full container font-display flex justify-between items-center text-xl">
+      <div
+        className={cn(
+          "absolute  z-[-2] w-full container font-display flex justify-between items-center text-xl",
+          "top-[calc(100dvh-1rem)] translate-y-[-100%]"
+          // "bottom-4"
+        )}
+      >
         <p>0/52</p>
         <p>////</p>
       </div>

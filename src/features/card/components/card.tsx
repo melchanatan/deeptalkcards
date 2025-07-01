@@ -58,7 +58,7 @@ const Card = ({
   if (!isActiveCard)
     return (
       <div
-        className={cn("w-[300px]", className)}
+        className={cn("w-[260px] sm:w-[300px]", className)}
         style={style}
         onClick={flipCard}
       >
@@ -72,6 +72,7 @@ const Card = ({
               alt="Card back"
               width={124}
               height={100}
+              className="select-none"
             />
           </div>
         </AspectRatio>
@@ -79,51 +80,58 @@ const Card = ({
     );
 
   return (
-    <div className={cn(" w-[300px]")} onClick={flipCard}>
-      <AspectRatio ratio={9 / 16} className="relative">
-        <div
-          className={cn(
-            cardClassName,
-            "card__content h-full w-full text-center relative p-20 text-white font-bold",
-            "ease-out transition-transform duration-1000",
-            isFlipped ? "rotate-y-180 scale-[120%] rotate-z-0" : ""
-          )}
-          style={{
-            ...cardStyle,
-            ...(isFlipped && {
-              transform: "rotateY(180deg)",
-            }),
-          }}
-        >
-          {/* Front of card */}
-          <div className="card__front absolute rounded-xl top-0 bottom-0 right-0 left-0 p-5 flex border border-[#F1F1F1] items-center justify-center">
-            <Image
-              src="/deeptalk-red.svg"
-              alt="Card back"
-              width={124}
-              height={100}
-              className="select-none"
-            />
-          </div>
+    <>
+      <motion.div
+        drag
+        className={cn("w-[260px] sm:w-[300px]")}
+        onClick={flipCard}
+      >
+        <AspectRatio ratio={9 / 16} className="relative">
+          <div
+            className={cn(
+              cardClassName,
+              "card__content h-full w-full text-center relative p-20 text-white font-bold",
+              "ease-out transition-transform duration-1000",
+              isFlipped ? "rotate-y-180 scale-[120%] rotate-z-0 " : ""
+            )}
+            style={{
+              ...cardStyle,
+              ...(isFlipped && {
+                transform: "rotateY(180deg)",
+              }),
+            }}
+          >
+            {/* Front of card */}
+            <div className="card__front absolute rounded-xl top-0 bottom-0 right-0 left-0 p-5 flex border border-[#F1F1F1] items-center justify-center">
+              <Image
+                src="/deeptalk-red.svg"
+                alt="Card back"
+                width={124}
+                height={100}
+                draggable={false}
+                className="select-none"
+              />
+            </div>
 
-          {/* Back of card */}
-          <div className="card__back absolute rounded-xl top-0 bottom-0 right-0 left-0 p-5 flex items-center justify-start">
-            <Image
-              src="/deeptalk.svg"
-              alt="Card back"
-              width={80}
-              height={50}
-              className="absolute top-6 left-5 select-none"
-            />
-            <h2 className="select-none font-normal text-[clamp(1.5rem,2.5vw,2rem)] text-start">
-              {content}
-            </h2>
+            {/* Back of card */}
+            <div className="card__back absolute rounded-xl top-0 bottom-0 right-0 left-0 p-5 flex items-center justify-start">
+              <Image
+                src="/deeptalk.svg"
+                alt="Card back"
+                width={80}
+                height={50}
+                className="absolute top-6 left-5 select-none"
+              />
+              <h2 className="select-none font-normal text-[clamp(1.5rem,2.5vw,2rem)] text-start">
+                {content}
+              </h2>
+            </div>
           </div>
-        </div>
-      </AspectRatio>
-      <ButtonGroup isFlipped={isFlipped} onCardPop={onCardPop} />
+        </AspectRatio>
+        <ButtonGroup isFlipped={isFlipped} onCardPop={onCardPop} />
+      </motion.div>
       <BackgroundBlur isFlipped={isFlipped} />
-    </div>
+    </>
   );
 };
 
