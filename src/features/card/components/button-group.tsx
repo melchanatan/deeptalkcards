@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ShareIcon } from "@phosphor-icons/react/dist/ssr";
+import { ArrowRightIcon, ShareIcon } from "@phosphor-icons/react/dist/ssr";
 import { motion } from "motion/react";
 
 const buttonAnimationVariants = {
@@ -41,7 +41,7 @@ const ButtonGroup = ({
     >
       <div className="flex-1">
         <Button className="w-full" onClick={onCardPop}>
-          Continue
+          Next card <ArrowRightIcon className="size-4" weight="bold" />
         </Button>
       </div>
       <div>

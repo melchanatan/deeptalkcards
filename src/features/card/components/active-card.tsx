@@ -22,7 +22,7 @@ interface CardProps {
   onCardPop: () => void;
 }
 
-const Card = ({
+const ActiveCard = ({
   content = "Front of Card",
   onCardPop,
   cardClassName,
@@ -241,4 +241,4 @@ const BackgroundBlur = ({ isShowing }: { isShowing: boolean }) => {
     />
   );
 };
-export default Card;
+export default ActiveCard;
