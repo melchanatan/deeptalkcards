@@ -30,6 +30,7 @@ const DomantCard = ({ cardStyle, className, style }: CardProps) => {
             alt="Card back"
             width={124}
             height={100}
+            priority
             className="select-none"
           />
         </div>

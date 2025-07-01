@@ -78,9 +78,13 @@ const CardsStack = () => {
     <>
       <div className="relative flex flex-col gap-4 ">
         {cards.map((item, index) => {
-          const brightness = 1 - (demoContent.length - index) * 0.1;
-          if (brightness <= 0) return null;
+          // Calculate brightness - second card (index === cards.length - 2) will be 100%
+          let brightness = 1 - (demoContent.length - index) * 0.02;
+          if (index === cards.length - 2) {
+            brightness = 1;
+          }
 
+          if (brightness <= 0) return null;
           if (index === cards.length - 1)
             return (
               <ActiveCard
@@ -89,9 +93,6 @@ const CardsStack = () => {
                 onCardPop={popCard}
                 isActiveCard={index === cards.length - 1}
                 className={cn("absolute top-0 left-0")}
-                style={{
-                  filter: `brightness(${brightness})`,
-                }}
                 cardStyle={{
                   transform: `
               rotateZ(${item.rotation}deg)
