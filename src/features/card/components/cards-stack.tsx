@@ -10,50 +10,23 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { AnimatePresence, motion } from "motion/react";
 
-const demoContent = [
-  {
-    id: 1,
-    title: "Card 1",
-    content:
-      "1งานที่ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
-  },
-  {
-    id: 2,
-    title: "Card 2",
-    content:
-      "2งานที่ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
-  },
-  {
-    id: 3,
-    title: "Card 3",
-    content:
-      "3งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
-  },
-  {
-    id: 4,
-    title: "Card 4",
-    content:
-      "4งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
-  },
-  {
-    id: 5,
-    title: "Card 5",
-    content:
-      "5งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
-  },
-];
-
 interface Card {
   id: number;
   title: string;
-  content: string;
+  content_us: string;
+  content_th?: string;
   rotation?: number;
 }
 
-const CardsStack = () => {
-  const [cards, setCards] = useState<Card[]>([]);
-  const totalCardCount = useMemo(() => demoContent.length, []);
-  const difficulty = 4; //TODO: get this from backend
+const CardsStack = ({
+  cards,
+  difficulty,
+}: {
+  cards: any;
+  difficulty: number;
+}) => {
+  const [currentCards, setCurrentCards] = useState<Card[]>([]);
+  const totalCardCount = useMemo(() => cards.length, []);
 
   function mutateRandomRotation(cards: Card[]) {
     return cards.map((card) => {
@@ -65,7 +38,9 @@ const CardsStack = () => {
   }
 
   function shuffleCards() {
-    setCards(mutateRandomRotation(demoContent).sort(() => Math.random() - 0.5));
+    setCurrentCards(
+      mutateRandomRotation(cards).sort(() => Math.random() - 0.5)
+    );
   }
 
   useEffect(() => {
@@ -76,27 +51,27 @@ const CardsStack = () => {
     await new Promise((resolve) => setTimeout(resolve, 400));
 
     if (cards.length <= 0) return;
-    setCards(cards.slice(0, -1));
+    setCurrentCards(cards.slice(0, -1));
   }
 
   return (
     <>
       <div className="relative flex flex-col gap-4 ">
-        {cards.map((item, index) => {
+        {currentCards.map((item, index) => {
           // Calculate brightness - second card (index === cards.length - 2) will be 100%
-          let brightness = 1 - (demoContent.length - index) * 0.02;
-          if (index === cards.length - 2) {
+          let brightness = 1 - (cards.length - index) * 0.02;
+          if (index === currentCards.length - 2) {
             brightness = 1;
           }
 
           if (brightness <= 0) return null;
-          if (index === cards.length - 1)
+          if (index === currentCards.length - 1)
             return (
               <ActiveCard
                 key={item.id}
-                content={item.content}
+                content={item.content_us}
                 onCardPop={popCard}
-                isActiveCard={index === cards.length - 1}
+                isActiveCard={index === currentCards.length - 1}
                 className={cn("absolute top-0 left-0")}
                 cardStyle={{
                   transform: `
@@ -129,7 +104,7 @@ const CardsStack = () => {
 
       {/* return button */}
       <AnimatePresence>
-        {cards.length <= 0 && (
+        {currentCards.length <= 0 && (
           <motion.div
             initial={{ opacity: 0, filter: "blur(10px)" }}
             animate={{ opacity: 1, filter: "blur(0px)" }}
@@ -156,7 +131,7 @@ const CardsStack = () => {
         )}
       >
         <p>
-          {totalCardCount - cards.length}/{totalCardCount}
+          {totalCardCount - currentCards.length}/{totalCardCount}
         </p>
         <p>
           {Array.from({ length: difficulty }).map((_, index) => (
