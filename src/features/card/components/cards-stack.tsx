@@ -32,11 +32,27 @@ const demoContent = [
   },
 ];
 
+interface Card {
+  id: number;
+  title: string;
+  content: string;
+  rotation?: number;
+}
+
 const CardsStack = () => {
-  const [cards, setCards] = useState(demoContent);
+  const [cards, setCards] = useState<Card[]>([]);
+
+  function mutateRandomRotation(cards: Card[]) {
+    return cards.map((card) => {
+      return {
+        ...card,
+        rotation: Math.round(Math.random() * 10 - 5),
+      };
+    });
+  }
 
   function shuffleCards() {
-    setCards(demoContent.sort(() => Math.random() - 0.5));
+    setCards(mutateRandomRotation(demoContent));
   }
 
   function popCard() {
@@ -49,34 +65,40 @@ const CardsStack = () => {
   }, []);
 
   return (
-    <div className="relative flex flex-col gap-4">
-      {cards.map((item, index) => {
-        const randomNumber = Math.round(Math.random() * 10 - 5);
-        const brightness = 1 - (demoContent.length - index) * 0.1;
+    <>
+      <div className="relative flex flex-col gap-4">
+        {cards.map((item, index) => {
+          // const randomNumber = Math.round(Math.random() * 10 - 5);
+          const brightness = 1 - (demoContent.length - index) * 0.1;
+          if (brightness <= 0) return null;
 
-        if (brightness <= 0) return null;
-
-        return (
-          <Card
-            key={item.id}
-            content={item.content}
-            isActiveCard={index === cards.length - 1}
-            className={cn("absolute top-0 left-0")}
-            style={{
-              filter: `brightness(${brightness})`,
-            }}
-            cardStyle={{
-              transform: `
-              rotateZ(${randomNumber}deg)
-               translateX(${randomNumber}px) 
-               translateY(${randomNumber * -1}px)
+          return (
+            <Card
+              key={item.id}
+              content={item.content}
+              isActiveCard={index === cards.length - 1}
+              className={cn("absolute top-0 left-0")}
+              style={{
+                filter: `brightness(${brightness})`,
+              }}
+              cardStyle={{
+                transform: `
+              rotateZ(${item.rotation}deg)
+               translateX(${item.rotation}px) 
+               translateY(${item.rotation ? item.rotation * -1 : 0}px)
                `,
-            }}
-          />
-        );
-      })}
-      <Button onClick={popCard}>Pop Card</Button>
-    </div>
+              }}
+            />
+          );
+        })}
+        <Button onClick={popCard}>Pop Card</Button>
+        <Button onClick={shuffleCards}>Shuffle Cards</Button>
+      </div>
+      <div className="absolute bottom-4 w-full container font-display flex justify-between items-center text-xl">
+        <p>0/52</p>
+        <p>////</p>
+      </div>
+    </>
   );
 };
 
