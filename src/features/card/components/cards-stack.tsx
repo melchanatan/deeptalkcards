@@ -80,40 +80,40 @@ const CardsStack = () => {
           const brightness = 1 - (demoContent.length - index) * 0.1;
           if (brightness <= 0) return null;
 
-          if (index !== cards.length - 1)
+          if (index === cards.length - 1)
             return (
-              <DomantCard
+              <ActiveCard
                 key={item.id}
+                content={item.content}
+                onCardPop={popCard}
+                isActiveCard={index === cards.length - 1}
                 className={cn("absolute top-0 left-0")}
                 style={{
                   filter: `brightness(${brightness})`,
                 }}
                 cardStyle={{
                   transform: `
-                rotateZ(${item.rotation}deg)
-                 translateX(${item.rotation}px) 
-                 translateY(${item.rotation ? item.rotation * -1 : 0}px)
-                 `,
+              rotateZ(${item.rotation}deg)
+               translateX(${item.rotation}px) 
+               translateY(${item.rotation ? item.rotation * -1 : 0}px)
+               `,
                 }}
               />
             );
 
           return (
-            <ActiveCard
+            <DomantCard
               key={item.id}
-              content={item.content}
-              onCardPop={popCard}
-              isActiveCard={index === cards.length - 1}
               className={cn("absolute top-0 left-0")}
               style={{
                 filter: `brightness(${brightness})`,
               }}
               cardStyle={{
                 transform: `
-              rotateZ(${item.rotation}deg)
-               translateX(${item.rotation}px) 
-               translateY(${item.rotation ? item.rotation * -1 : 0}px)
-               `,
+                rotateZ(${item.rotation}deg)
+                 translateX(${item.rotation}px) 
+                 translateY(${item.rotation ? item.rotation * -1 : 0}px)
+                 `,
               }}
             />
           );
