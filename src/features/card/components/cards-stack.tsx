@@ -8,27 +8,32 @@ const demoContent = [
   {
     id: 1,
     title: "Card 1",
-    content: "Content 1",
+    content:
+      "งานที่ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
   },
   {
     id: 2,
     title: "Card 2",
-    content: "Content 2",
+    content:
+      "งานที่ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
   },
   {
     id: 3,
     title: "Card 3",
-    content: "Content 3",
+    content:
+      "งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
   },
   {
     id: 4,
     title: "Card 4",
-    content: "Content 3",
+    content:
+      "งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
   },
   {
     id: 5,
     title: "Card 5",
-    content: "Content 5",
+    content:
+      "งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
   },
 ];
 
@@ -55,7 +60,9 @@ const CardsStack = () => {
     setCards(mutateRandomRotation(demoContent));
   }
 
-  function popCard() {
+  async function popCard() {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     if (cards.length <= 0) return;
     setCards(cards.slice(0, -1));
   }
@@ -66,7 +73,7 @@ const CardsStack = () => {
 
   return (
     <>
-      <div className="relative flex flex-col gap-4">
+      <div className="relative flex flex-col gap-4 ">
         {cards.map((item, index) => {
           // const randomNumber = Math.round(Math.random() * 10 - 5);
           const brightness = 1 - (demoContent.length - index) * 0.1;
@@ -76,6 +83,7 @@ const CardsStack = () => {
             <Card
               key={item.id}
               content={item.content}
+              onCardPop={popCard}
               isActiveCard={index === cards.length - 1}
               className={cn("absolute top-0 left-0")}
               style={{
@@ -91,10 +99,9 @@ const CardsStack = () => {
             />
           );
         })}
-        <Button onClick={popCard}>Pop Card</Button>
-        <Button onClick={shuffleCards}>Shuffle Cards</Button>
       </div>
-      <div className="absolute bottom-4 w-full container font-display flex justify-between items-center text-xl">
+
+      <div className="absolute top-[calc(100vh-1rem)] translate-y-[-100%] z-[-2] w-full container font-display flex justify-between items-center text-xl">
         <p>0/52</p>
         <p>////</p>
       </div>

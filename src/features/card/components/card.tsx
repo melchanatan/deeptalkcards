@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 import { ShareIcon } from "@phosphor-icons/react";
+import { motion } from "motion/react";
+import { s } from "motion/react-client";
+import ButtonGroup from "./button-group";
 
 interface CardProps {
   content?: React.ReactNode;
@@ -15,10 +18,12 @@ interface CardProps {
   className?: string;
   isActiveCard?: boolean;
   style?: React.CSSProperties;
+  onCardPop: () => void;
 }
 
 const Card = ({
   content = "Front of Card",
+  onCardPop,
   cardClassName,
   cardStyle,
   className,
@@ -53,17 +58,13 @@ const Card = ({
   if (!isActiveCard)
     return (
       <div
-        className={cn(" w-[300px]", className)}
-        style={{
-          ...style,
-        }}
+        className={cn("w-[300px]", className)}
+        style={style}
         onClick={flipCard}
       >
         <AspectRatio ratio={9 / 16} className="relative">
           <div
-            style={{
-              ...cardStyle,
-            }}
+            style={cardStyle}
             className="card__front absolute rounded-xl top-0 bottom-0 right-0 left-0 p-5 flex border border-[#F1F1F1] items-center justify-center"
           >
             <Image
@@ -83,8 +84,9 @@ const Card = ({
         <div
           className={cn(
             cardClassName,
-            "card__content h-full w-full text-center relative p-20 transition-transform duration-1000 text-white font-bold",
-            isFlipped ? "rotate-y-180 scale-125 rotate-z-0" : ""
+            "card__content h-full w-full text-center relative p-20 text-white font-bold",
+            "ease-out transition-transform duration-1000",
+            isFlipped ? "rotate-y-180 scale-[120%] rotate-z-0" : ""
           )}
           style={{
             ...cardStyle,
@@ -100,6 +102,7 @@ const Card = ({
               alt="Card back"
               width={124}
               height={100}
+              className="select-none"
             />
           </div>
 
@@ -112,33 +115,26 @@ const Card = ({
               height={50}
               className="absolute top-6 left-5 select-none"
             />
-            <h2 className="font-normal text-[clamp(1.5rem,2.5vw,2rem)] text-start">
+            <h2 className="select-none font-normal text-[clamp(1.5rem,2.5vw,2rem)] text-start">
               {content}
             </h2>
           </div>
         </div>
-        <div
-          className={cn(
-            "absolute bottom-[-7rem] w-[125%] right-0 translate-x-[-10%] left-0 ",
-            isFlipped ? "flex" : "hidden",
-            " flex-row gap-2"
-          )}
-        >
-          <Button className="flex-1">Continue</Button>
-          <Button variant="outline" size="icon">
-            <ShareIcon className="size-5" weight="bold" />
-          </Button>
-        </div>
       </AspectRatio>
-
-      {isFlipped && <BackgroundBlur />}
+      <ButtonGroup isFlipped={isFlipped} onCardPop={onCardPop} />
+      <BackgroundBlur isFlipped={isFlipped} />
     </div>
   );
 };
 
-const BackgroundBlur = () => {
+const BackgroundBlur = ({ isFlipped }: { isFlipped: boolean }) => {
   return (
-    <div className="fixed z-[-1] size-full top-0 bottom-0 right-0 left-0 bg-background/10 backdrop-blur-sm" />
+    <motion.div
+      className="fixed z-[-1] size-full top-0 bottom-0 right-0 left-0 bg-background/10 backdrop-blur-sm"
+      initial={{ opacity: 0, pointerEvents: "none" }}
+      animate={{ opacity: isFlipped ? 1 : 0, pointerEvents: "auto" }}
+      transition={{ duration: 0.5 }}
+    />
   );
 };
 export default Card;
