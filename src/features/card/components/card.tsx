@@ -5,18 +5,28 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
-import { useLockBodyScroll, useWindowScroll } from "@uidotdev/usehooks";
 import { ShareIcon } from "@phosphor-icons/react";
 
 interface CardProps {
-  frontContent?: React.ReactNode;
+  content?: React.ReactNode;
   backContent?: React.ReactNode;
+  cardClassName?: string;
+  cardStyle?: React.CSSProperties;
   className?: string;
+  isActiveCard?: boolean;
+  style?: React.CSSProperties;
 }
-const Card = ({ frontContent = "Front of Card", className }: CardProps) => {
+
+const Card = ({
+  content = "Front of Card",
+  cardClassName,
+  cardStyle,
+  className,
+  isActiveCard,
+  style,
+}: CardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // Use useEffect to handle scroll locking with vanilla JS
   useEffect(() => {
     if (isFlipped) {
       document.body.style.position = "fixed";
@@ -25,33 +35,63 @@ const Card = ({ frontContent = "Front of Card", className }: CardProps) => {
       document.body.style.overflowY = "scroll";
 
       return () => {
-        // Remove the styles and restore scroll position
         document.body.style.position = "";
         document.body.style.top = "";
         document.body.style.width = "";
         document.body.style.overflowY = "";
 
-        // Scroll back to the original position
         window.scrollTo(0, 0);
       };
     }
   }, [isFlipped]);
 
   const flipCard = () => {
-    // Scroll to top first
     scrollTo({ top: 0, behavior: "smooth" });
-    // Then flip the card
     setIsFlipped(!isFlipped);
   };
 
+  if (!isActiveCard)
+    return (
+      <div
+        className={cn(" w-[300px]", className)}
+        style={{
+          ...style,
+        }}
+        onClick={flipCard}
+      >
+        <AspectRatio ratio={9 / 16} className="relative">
+          <div
+            style={{
+              ...cardStyle,
+            }}
+            className="card__front absolute rounded-xl top-0 bottom-0 right-0 left-0 p-5 flex border border-[#F1F1F1] items-center justify-center"
+          >
+            <Image
+              src="/deeptalk-red.svg"
+              alt="Card back"
+              width={124}
+              height={100}
+            />
+          </div>
+        </AspectRatio>
+      </div>
+    );
+
   return (
-    <div className={cn(" w-[300px]", className)} onClick={flipCard}>
+    <div className={cn(" w-[300px]")} onClick={flipCard}>
       <AspectRatio ratio={9 / 16} className="relative">
         <div
           className={cn(
-            "card__content h-full w-full text-center relative rotate-z-[3deg] p-20 transition-transform duration-1000 text-white font-bold",
+            cardClassName,
+            "card__content h-full w-full text-center relative p-20 transition-transform duration-1000 text-white font-bold",
             isFlipped ? "rotate-y-180 scale-125 rotate-z-0" : ""
           )}
+          style={{
+            ...cardStyle,
+            ...(isFlipped && {
+              transform: "rotateY(180deg)",
+            }),
+          }}
         >
           {/* Front of card */}
           <div className="card__front absolute rounded-xl top-0 bottom-0 right-0 left-0 p-5 flex border border-[#F1F1F1] items-center justify-center">
@@ -73,7 +113,7 @@ const Card = ({ frontContent = "Front of Card", className }: CardProps) => {
               className="absolute top-6 left-5 select-none"
             />
             <h2 className="font-normal text-[clamp(1.5rem,2.5vw,2rem)] text-start">
-              {frontContent}
+              {content}
             </h2>
           </div>
         </div>

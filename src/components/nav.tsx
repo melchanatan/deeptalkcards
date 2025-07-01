@@ -4,7 +4,7 @@ import { GlobeIcon, InfoIcon } from "@phosphor-icons/react/dist/ssr";
 
 const Nav = () => {
   return (
-    <div className="top-4 fixed w-full container flex justify-between items-start z-[-1]">
+    <div className="top-4 fixed left-0 right-0 container flex justify-between items-start z-[-1]">
       <Image src="/deeptalk.svg" alt="logo" width={80} height={50} />
 
       <div className="flex">
