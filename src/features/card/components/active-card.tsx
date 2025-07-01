@@ -132,7 +132,6 @@ const Card = ({
         .then(() => {
           // Call onCardPop when animation completes
           onCardPop();
-          setIsThrowing(false);
         });
 
       return;
@@ -226,7 +225,7 @@ const Card = ({
         </AspectRatio>
         <ButtonGroup
           isShowing={isFlipped}
-          isDragging={isDragging}
+          isDragging={isDragging || isThrowing}
           onCardPop={handlePopCard}
         />
       </motion.div>

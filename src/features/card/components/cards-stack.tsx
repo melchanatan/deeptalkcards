@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import ActiveCard from "./active-card";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import DomantCard from "./domant-card";
 
@@ -10,31 +10,31 @@ const demoContent = [
     id: 1,
     title: "Card 1",
     content:
-      "งานที่ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
+      "1งานที่ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
   },
   {
     id: 2,
     title: "Card 2",
     content:
-      "งานที่ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
+      "2งานที่ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
   },
   {
     id: 3,
     title: "Card 3",
     content:
-      "งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
+      "3งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
   },
   {
     id: 4,
     title: "Card 4",
     content:
-      "งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
+      "4งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
   },
   {
     id: 5,
     title: "Card 5",
     content:
-      "งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
+      "5งานที้ฉันทำอยู่ตอนนี้ กำลังหล่อหลอมฉันเป็นคนแบบไหน — และนั่นคือคนที่ฉันอยากเป็นหรือเปล่า?",
   },
 ];
 
@@ -60,19 +60,19 @@ const CardsStack = () => {
   }
 
   function shuffleCards() {
-    setCards(mutateRandomRotation(demoContent));
-  }
-
-  async function popCard() {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    if (cards.length <= 0) return;
-    setCards(cards.slice(0, -1));
+    setCards(mutateRandomRotation(demoContent).sort(() => Math.random() - 0.5));
   }
 
   useEffect(() => {
     shuffleCards();
   }, []);
+
+  async function popCard() {
+    await new Promise((resolve) => setTimeout(resolve, 400));
+
+    if (cards.length <= 0) return;
+    setCards(cards.slice(0, -1));
+  }
 
   return (
     <>
