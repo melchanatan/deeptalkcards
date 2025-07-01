@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import ActiveCard from "./active-card";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import DomantCard from "./domant-card";
 
@@ -47,6 +47,8 @@ interface Card {
 
 const CardsStack = () => {
   const [cards, setCards] = useState<Card[]>([]);
+  const totalCardCount = useMemo(() => demoContent.length, []);
+  const difficulty = 4; //TODO: get this from backend
 
   function mutateRandomRotation(cards: Card[]) {
     return cards.map((card) => {
@@ -76,7 +78,6 @@ const CardsStack = () => {
     <>
       <div className="relative flex flex-col gap-4 ">
         {cards.map((item, index) => {
-          // const randomNumber = Math.round(Math.random() * 10 - 5);
           const brightness = 1 - (demoContent.length - index) * 0.1;
           if (brightness <= 0) return null;
 
@@ -124,11 +125,16 @@ const CardsStack = () => {
         className={cn(
           "absolute  z-[-2] w-full container font-display flex justify-between items-center text-xl",
           "top-[calc(100dvh-1rem)] translate-y-[-100%]"
-          // "bottom-4"
         )}
       >
-        <p>0/52</p>
-        <p>////</p>
+        <p>
+          {totalCardCount - cards.length}/{totalCardCount}
+        </p>
+        <p>
+          {Array.from({ length: difficulty }).map((_, index) => (
+            <span key={index}>/</span>
+          ))}
+        </p>
       </div>
     </>
   );
