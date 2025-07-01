@@ -212,7 +212,7 @@ const Card = ({
                 alt="Card back"
                 width={80}
                 height={50}
-                className="absolute top-6 left-5 select-none"
+                className="absolute top-6 left-5 select-none w-[64px] sm:w-[72px]"
               />
               <h2 className="select-none font-normal text-[clamp(1.5rem,2.5vw,2rem)] text-start">
                 {content}

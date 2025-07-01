@@ -4,6 +4,11 @@ import ActiveCard from "./active-card";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import DomantCard from "./domant-card";
+import {
+  ArrowLeftIcon,
+  ArrowClockwiseIcon,
+} from "@phosphor-icons/react/dist/ssr";
+import { AnimatePresence, motion } from "motion/react";
 
 const demoContent = [
   {
@@ -122,6 +127,28 @@ const CardsStack = () => {
         })}
       </div>
 
+      {/* return button */}
+      <AnimatePresence>
+        {cards.length <= 0 && (
+          <motion.div
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, filter: "blur(10px)" }}
+            transition={{ duration: 0.3 }}
+            className="absolute text-primary/40 bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-full flex justify-center"
+          >
+            <button
+              onClick={shuffleCards}
+              className="flex font-display text-2xl flex-col items-center gap-2 p-2"
+            >
+              <ArrowClockwiseIcon className="size-14" />
+              <p>Play again</p>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* additional info */}
       <div
         className={cn(
           "absolute  z-[-2] w-full container font-display flex justify-between items-center text-xl",
