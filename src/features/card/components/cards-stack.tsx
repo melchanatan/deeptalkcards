@@ -45,7 +45,7 @@ const CardsStack = ({
 
   useEffect(() => {
     shuffleCards();
-  });
+  }, []);
 
   async function popCard() {
     await new Promise((resolve) => setTimeout(resolve, 400));
