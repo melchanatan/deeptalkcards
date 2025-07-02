@@ -9,6 +9,7 @@ import {
   ArrowClockwiseIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { AnimatePresence, motion } from "motion/react";
+import Link from "next/link";
 
 interface Card {
   id: number;
@@ -110,15 +111,19 @@ const CardsStack = ({
             animate={{ opacity: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, filter: "blur(10px)" }}
             transition={{ duration: 0.3 }}
-            className="absolute text-primary/40 bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-full flex justify-center"
+            className="absolute flex-col items-center gap-2 text-primary/40 bottom-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-full flex justify-center"
           >
             <button
               onClick={shuffleCards}
-              className="flex font-display text-2xl flex-col items-center gap-2 p-2"
+              className="flex cursor-pointer font-display text-2xl flex-col items-center gap-2 p-2"
             >
               <ArrowClockwiseIcon className="size-14" />
               <p>Play again</p>
             </button>
+            <p className="text-xl">or</p>
+            <Link href="/" className="text-primary/40 font-display text-xl">
+              select new deck
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

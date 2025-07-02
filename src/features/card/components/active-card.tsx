@@ -162,7 +162,7 @@ const ActiveCard = ({
       <motion.div
         ref={ref}
         drag
-        className={cn("w-[260px] sm:w-[300px] z-20 ")}
+        className={cn("w-[260px] sm:w-[300px] z-20 cursor-grab")}
         onClick={flipCard}
         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
         dragElastic={0.6}
