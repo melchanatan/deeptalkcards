@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
@@ -13,13 +13,10 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
-export default function DeckManagementPage({
-  params,
-}: {
-  params: { deckId: string };
-}) {
+export default function DeckManagementPage() {
   const router = useRouter();
-  const { deckId } = { deckId: "1" };
+  const params = useParams();
+  const { deckId } = params;
 
   const [deck, setDeck] = useState<any>(null);
   const [cards, setCards] = useState<any[]>([]);
@@ -62,7 +59,7 @@ export default function DeckManagementPage({
     };
 
     fetchDeckAndCards();
-  }, [deckId, supabase]);
+  }, [deckId]);
 
   const handleDeleteDeck = async () => {
     try {

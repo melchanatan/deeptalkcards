@@ -11,18 +11,7 @@ import {
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b">
-        <div className="container flex items-center justify-between h-16">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-2">
-              <ArrowLeftIcon size={20} />
-              <span>Back to App</span>
-            </Link>
-            <h1 className="text-xl font-display">DeepTalk Dashboard</h1>
-          </div>
-        </div>
-      </header>
-
+      <div className="h-16"></div>
       <div className="flex flex-1">
         <aside className="w-64 border-r p-4 hidden md:block">
           <nav className="space-y-2">
