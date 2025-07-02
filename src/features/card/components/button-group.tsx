@@ -27,7 +27,7 @@ const ButtonGroup = ({
   return (
     <motion.div
       className={cn(
-        "absolute bottom-[-6.5rem] w-[120%] right-0 translate-x-[-8%] left-0",
+        "absolute bottom-[-6.5rem] w-[120%] right-0 translate-x-[-8%] left-0 z-20",
         "flex-row flex gap-2"
       )}
       variants={buttonAnimationVariants}

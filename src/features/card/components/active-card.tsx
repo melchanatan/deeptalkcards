@@ -6,7 +6,13 @@ import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Image from "next/image";
 import { ShareIcon } from "@phosphor-icons/react";
-import { motion, useMotionValue, PanInfo, useAnimation } from "motion/react";
+import {
+  motion,
+  useMotionValue,
+  PanInfo,
+  useAnimation,
+  AnimatePresence,
+} from "motion/react";
 import { s } from "motion/react-client";
 import ButtonGroup from "./button-group";
 import { useClickAway } from "@uidotdev/usehooks";
@@ -183,7 +189,7 @@ const ActiveCard = ({
             className={cn(
               cardClassName,
               "card__content h-full w-full text-center relative shadow-xl p-20 text-white font-bold",
-              "ease-out transition-transform duration-1000",
+              "ease-out transition-transform duration-1000 z-20",
               isFlipped ? "rotate-y-180 scale-[120%] rotate-z-0 " : ""
             )}
             style={{
@@ -233,12 +239,16 @@ const ActiveCard = ({
 
 const BackgroundBlur = ({ isShowing }: { isShowing: boolean }) => {
   return (
-    <motion.div
-      className="fixed z-[-1] size-full top-0 bottom-0 right-0 left-0 bg-background/10 backdrop-blur-sm"
-      initial={{ opacity: 0, pointerEvents: "none" }}
-      animate={{ opacity: isShowing ? 1 : 0, pointerEvents: "auto" }}
-      transition={{ duration: 0.5 }}
-    />
+    <AnimatePresence>
+      {isShowing && (
+        <motion.div
+          className="fixed z-[2] size-full top-0 bottom-0 right-0 left-0 bg-background/10 backdrop-blur-sm"
+          initial={{ opacity: 0, pointerEvents: "none" }}
+          animate={{ opacity: isShowing ? 1 : 0, pointerEvents: "auto" }}
+          transition={{ duration: 0.5 }}
+        />
+      )}
+    </AnimatePresence>
   );
 };
 export default ActiveCard;
