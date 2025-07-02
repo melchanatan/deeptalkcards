@@ -17,11 +17,11 @@ const Nav = () => {
 
       <div className="flex gap-2">
         <RulebookButton />
-        <Link href="/dashboard">
+        {/* <Link href="/dashboard">
           <Button size="icon" variant="ghost" title="Dashboard">
             <GearIcon weight="bold" className="size-5" />
           </Button>
-        </Link>
+        </Link> */}
         {/* <Button size="icon" variant="ghost">
           <GlobeIcon weight="bold" className="size-5" />
         </Button> */}
