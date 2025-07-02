@@ -162,7 +162,7 @@ const ActiveCard = ({
       <motion.div
         ref={ref}
         drag
-        className={cn("w-[260px] sm:w-[300px] ")}
+        className={cn("w-[260px] sm:w-[300px] z-20 ")}
         onClick={flipCard}
         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
         dragElastic={0.6}
@@ -189,7 +189,7 @@ const ActiveCard = ({
             className={cn(
               cardClassName,
               "card__content h-full w-full text-center relative shadow-xl p-20 text-white font-bold",
-              "ease-out transition-transform duration-1000 z-20",
+              "ease-out transition-transform duration-1000 z-50",
               isFlipped ? "rotate-y-180 scale-[120%] rotate-z-0 " : ""
             )}
             style={{

@@ -50,8 +50,8 @@ const CardsStack = ({
   async function popCard() {
     await new Promise((resolve) => setTimeout(resolve, 400));
 
-    if (cards.length <= 0) return;
-    setCurrentCards(cards.slice(0, -1));
+    if (currentCards.length <= 0) return;
+    setCurrentCards(currentCards.slice(0, -1));
   }
 
   return (
