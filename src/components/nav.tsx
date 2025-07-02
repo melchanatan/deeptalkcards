@@ -1,20 +1,18 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { GlobeIcon, InfoIcon } from "@phosphor-icons/react/dist/ssr";
+import { GlobeIcon, BookOpenIcon } from "@phosphor-icons/react/dist/ssr";
+import RulebookButton from "./rulebook-button";
 
 const Nav = () => {
   return (
-    <div className="top-4 fixed left-0 right-0 container flex justify-between items-start z-[-1]">
+    <div className="top-4 fixed left-0 right-0 container flex justify-between items-start">
       <Image src="/deeptalk.svg" alt="logo" width={80} height={50} />
 
       <div className="flex">
-        <Button size="icon" variant="ghost">
-          <InfoIcon size={32} weight="bold" className="size-5" />
-        </Button>
-
-        <Button size="icon" variant="ghost">
+        <RulebookButton />
+        {/* <Button size="icon" variant="ghost">
           <GlobeIcon weight="bold" className="size-5" />
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
