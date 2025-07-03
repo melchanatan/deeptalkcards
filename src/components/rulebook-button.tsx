@@ -35,8 +35,8 @@ const RulebookButton = () => {
               <ol className="space-y-3 list-decimal pl-6">
                 <li>On your turn, draw the top card and read it aloud.</li>
                 <li>
-                  You must answer honestly, or you may "pass" — but you only get
-                  one pass per game.
+                  You must answer honestly, or you may &ldquo;pass&rdquo; — but
+                  you only get one pass per game.
                 </li>
                 <li>
                   After answering, choose one other player to answer the same

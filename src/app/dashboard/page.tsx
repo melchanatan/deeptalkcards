@@ -29,7 +29,7 @@ export default async function DashboardPage() {
         </div>
       ) : (
         <div className="text-center py-10 border rounded-lg">
-          <p className="text-xl mb-4">You don't have any decks yet</p>
+          <p className="text-xl mb-4">You don&apos;t have any decks yet</p>
           <Link href="/dashboard/decks/new">
             <Button>Create your first deck</Button>
           </Link>

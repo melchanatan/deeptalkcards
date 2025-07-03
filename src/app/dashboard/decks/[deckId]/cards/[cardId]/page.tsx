@@ -1,18 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
 
-export default function EditCardPage({
-  params,
-}: {
-  params: { deckId: string; cardId: string };
-}) {
+export default function EditCardPage() {
   const router = useRouter();
-  const { deckId, cardId } = params;
+  const { deckId, cardId } = useParams<{ deckId: string; cardId: string }>();
 
   const [content, setContent] = useState("");
   const [contentTh, setContentTh] = useState("");

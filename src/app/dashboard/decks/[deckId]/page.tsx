@@ -235,9 +235,9 @@ export default function DeckManagementPage() {
           <div className="bg-background p-6 rounded-lg max-w-md w-full">
             <h3 className="text-xl font-bold mb-4">Delete Deck</h3>
             <p className="mb-6">
-              Are you sure you want to delete "{deck.title}"? This will also
-              delete all {cards.length} cards in this deck. This action cannot
-              be undone.
+              Are you sure you want to delete &ldquo;{deck.title}&ldquo;? This
+              will also delete all {cards.length} cards in this deck. This
+              action cannot be undone.
             </p>
             <div className="flex justify-end gap-4">
               <Button
